@@ -8,6 +8,7 @@ from src.config.settings import BotConfig
 from src.database.database_manager import DatabaseManager
 from src.services.leetcode_services import LeetCodeService
 from src.services.group_services import GroupService
+from src.services.keep_alive import keep_alive
 from src.tasks.scheduled_tasks import ScheduledTasks
 from src.commands.user_commands import UserCommands
 from src.events.event_handlers import EventHandlers
@@ -53,6 +54,8 @@ class LeetCodeBot(commands.Bot):
     def run(self):
         """Run the bot"""
         try:
+            keep_alive()  # Start keep-alive server
+            logger.info("Starting bot...")
             super().run(self.config.discord_token)
         except Exception as e:
             logger.error(f"Error running bot: {e}")
